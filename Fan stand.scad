@@ -7,9 +7,14 @@ base_length = 70;  // mm
 base_width = 60;   // mm
 base_thickness = 3; // mm
 
-cylinder_length = 30; // mm (along base length)
-cylinder_width = 25;  // mm (along base width)
+cylinder_length = 32; // mm (along base length) - increased from 30 to accommodate handle + wall
+cylinder_width = 27;  // mm (along base width) - increased from 25 to accommodate handle + wall
 cylinder_height = 30; // mm
+
+// Handle cavity parameters
+handle_length = 30;   // mm - actual handle size
+handle_width = 25;    // mm - actual handle size
+wall_thickness = 1;   // mm - wall thickness around handle (should be 2mm total = 1mm each side)
 
 // Taper parameters
 taper_height = 5;     // mm - height of the tapered support
@@ -42,6 +47,11 @@ module fan_stand() {
         
         // Cut out half-moon shapes from all four sides
         cutouts();
+        
+        // Cut out handle cavity inside cylinder
+        translate([0, 0, base_thickness]) {
+            handle_cavity();
+        }
     }
 }
 
@@ -121,6 +131,21 @@ module cutouts() {
     translate([0, base_width/2 - cutout_offset, -1]) {
         scale([cutout_length/cutout_width, 1, 1]) {
             cylinder(h=base_thickness + 2, d=cutout_width, center=false);
+        }
+    }
+}
+
+module handle_cavity() {
+    // Create oval cavity for handle inside cylinder
+    hull() {
+        // Cylinder at one end
+        translate([-(handle_length-handle_width)/2, 0, 0]) {
+            cylinder(h=cylinder_height + 1, d=handle_width, center=false);
+        }
+        
+        // Cylinder at other end
+        translate([(handle_length-handle_width)/2, 0, 0]) {
+            cylinder(h=cylinder_height + 1, d=handle_width, center=false);
         }
     }
 }
