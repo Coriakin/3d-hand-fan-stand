@@ -1,0 +1,14 @@
+# STL files (generated 3D models)
+*.stl
+
+# Other common 3D file formats
+*.obj
+*.3mf
+*.gcode
+
+# OpenSCAD backup files
+*~
+
+# System files
+.DS_Store
+Thumbs.db

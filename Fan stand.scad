@@ -25,6 +25,9 @@ cutout_width = 28;    // mm - width of the oval cutouts (increased from 16)
 cutout_length = 28;   // mm - length of the oval cutouts (increased from 24)
 cutout_offset = 5;   // mm - distance from edge to center of cutout (moved further out)
 
+// Rendering quality
+$fn = 64;  // Number of facets for smooth cylinders (higher = smoother)
+
 // Create the fan stand
 fan_stand();
 
