@@ -21,9 +21,9 @@ taper_height = 5;     // mm - height of the tapered support
 taper_scale = 1.5;    // scale factor for taper base (1.5 = 50% larger)
 
 // Cutout parameters
-cutout_width = 16;    // mm - width of the oval cutouts
-cutout_length = 24;   // mm - length of the oval cutouts
-cutout_offset = 6;    // mm - distance from edge to center of cutout
+cutout_width = 20;    // mm - width of the oval cutouts (increased from 16)
+cutout_length = 30;   // mm - length of the oval cutouts (increased from 24)
+cutout_offset = 12;   // mm - distance from edge to center of cutout (moved further out)
 
 // Create the fan stand
 fan_stand();
