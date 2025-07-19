@@ -16,8 +16,9 @@ taper_height = 5;     // mm - height of the tapered support
 taper_scale = 1.5;    // scale factor for taper base (1.5 = 50% larger)
 
 // Cutout parameters
-cutout_radius = 12;   // mm - radius of the half-moon cutouts (reduced from 20)
-cutout_offset = 8;    // mm - distance from edge to center of cutout (reduced from 15)
+cutout_width = 16;    // mm - width of the oval cutouts
+cutout_length = 24;   // mm - length of the oval cutouts
+cutout_offset = 6;    // mm - distance from edge to center of cutout
 
 // Create the fan stand
 fan_stand();
@@ -98,20 +99,28 @@ module oval_base() {
 }
 
 module cutouts() {
-    // Cut out half-moon shapes from all four sides
-    // Long sides (left and right)
+    // Cut out oval shapes from all four sides
+    // Long sides (left and right) - vertical ovals
     translate([-base_length/2 + cutout_offset, 0, -1]) {
-        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+        scale([1, cutout_length/cutout_width, 1]) {
+            cylinder(h=base_thickness + 2, d=cutout_width, center=false);
+        }
     }
     translate([base_length/2 - cutout_offset, 0, -1]) {
-        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+        scale([1, cutout_length/cutout_width, 1]) {
+            cylinder(h=base_thickness + 2, d=cutout_width, center=false);
+        }
     }
     
-    // Short sides (front and back)
+    // Short sides (front and back) - horizontal ovals
     translate([0, -base_width/2 + cutout_offset, -1]) {
-        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+        scale([cutout_length/cutout_width, 1, 1]) {
+            cylinder(h=base_thickness + 2, d=cutout_width, center=false);
+        }
     }
     translate([0, base_width/2 - cutout_offset, -1]) {
-        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+        scale([cutout_length/cutout_width, 1, 1]) {
+            cylinder(h=base_thickness + 2, d=cutout_width, center=false);
+        }
     }
 }
