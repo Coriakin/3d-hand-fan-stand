@@ -11,6 +11,8 @@ This OpenSCAD project creates a 3D-printable stand designed to securely hold han
 - **Tapered support structure** for enhanced stability and visual appeal
 - **Parametric design** allowing easy customization of dimensions
 
+![Fan Stand Design](screenshot1.png)
+
 ## Features
 
 ### Functional Design
