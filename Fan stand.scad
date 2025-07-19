@@ -15,23 +15,32 @@ cylinder_height = 30; // mm
 taper_height = 5;     // mm - height of the tapered support
 taper_scale = 1.5;    // scale factor for taper base (1.5 = 50% larger)
 
+// Cutout parameters
+cutout_radius = 12;   // mm - radius of the half-moon cutouts (reduced from 20)
+cutout_offset = 8;    // mm - distance from edge to center of cutout (reduced from 15)
+
 // Create the fan stand
 fan_stand();
 
 module fan_stand() {
-    union() {
-        // Base plate
-        base_plate();
-        
-        // Oval cylinder in the center
-        translate([0, 0, base_thickness]) {
-            oval_cylinder();
+    difference() {
+        union() {
+            // Base plate
+            base_plate();
+            
+            // Oval cylinder in the center
+            translate([0, 0, base_thickness]) {
+                oval_cylinder();
+            }
+            
+            // Tapered support at base of cylinder
+            translate([0, 0, base_thickness]) {
+                tapered_support();
+            }
         }
         
-        // Tapered support at base of cylinder
-        translate([0, 0, base_thickness]) {
-            tapered_support();
-        }
+        // Cut out half-moon shapes from all four sides
+        cutouts();
     }
 }
 
@@ -85,5 +94,24 @@ module oval_base() {
         translate([(cylinder_length-cylinder_width)/2, 0, 0]) {
             cylinder(h=0.1, d=cylinder_width, center=false);
         }
+    }
+}
+
+module cutouts() {
+    // Cut out half-moon shapes from all four sides
+    // Long sides (left and right)
+    translate([-base_length/2 + cutout_offset, 0, -1]) {
+        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+    }
+    translate([base_length/2 - cutout_offset, 0, -1]) {
+        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+    }
+    
+    // Short sides (front and back)
+    translate([0, -base_width/2 + cutout_offset, -1]) {
+        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
+    }
+    translate([0, base_width/2 - cutout_offset, -1]) {
+        cylinder(h=base_thickness + 2, r=cutout_radius, center=false);
     }
 }
