@@ -1,6 +1,9 @@
 # Fan Stand for Hand Fans
 
-A parametric OpenSCAD design for a functional and elegant hand fan display stand.
+A parametric OpenSCAD design for a functional and elegant hand fan display s4. Introduced decorative cutouts for material savings and aesthetics
+5. Added tapered support for improved structural integrity
+6. Optimized parameters for 3D printing and functionality
+7. **Added multi-part export functionality** for multi-color 3D printingd.
 
 ## Overview
 
@@ -44,12 +47,27 @@ This OpenSCAD project creates a 3D-printable stand designed to securely hold han
 3. Press F5 for preview or F6 for full render
 4. Export as STL for 3D printing
 
+### Multi-Part Export for Multi-Color Printing
+The design supports exporting individual parts for multi-color 3D printing:
+
+1. **Complete model**: Set `part_to_show = "all"` (default)
+2. **Base plate only**: Set `part_to_show = "base"`
+3. **Cylinder only**: Set `part_to_show = "cylinder"`
+4. **Tapered support only**: Set `part_to_show = "support"`
+
+**Workflow for multi-color printing:**
+1. Change `part_to_show` to "base", render, and export as `base.stl`
+2. Change `part_to_show` to "cylinder", render, and export as `cylinder.stl`
+3. Change `part_to_show` to "support", render, and export as `support.stl`
+4. Import all STL files into your slicer and assign different colors to each part
+
 ### Customization
 Key parameters can be adjusted at the top of the file:
 - `base_length`, `base_width`: Base plate dimensions
 - `cylinder_height`: Height of the fan holder
 - `handle_length`, `handle_width`: Cavity size for different fan handles
 - `cutout_width`, `cutout_length`: Decorative cutout sizing
+- `part_to_show`: Controls which part to export ("all", "base", "cylinder", "support")
 
 ## 3D Printing Guidelines
 
@@ -64,6 +82,12 @@ Key parameters can be adjusted at the top of the file:
 - **PLA**: Easy printing, good for indoor display
 - **PETG**: More durable, better for frequent use
 - **ABS**: Strong and heat resistant
+
+### Multi-Color Printing
+- Export individual parts as separate STL files using the `part_to_show` parameter
+- Assign different colors/materials to each part in your slicer
+- Recommended color scheme: contrasting colors for base, cylinder, and support
+- Consider transparent or translucent materials for decorative effect
 
 ## File Structure
 

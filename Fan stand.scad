@@ -1,6 +1,10 @@
-// Fan Stand for Hand Fan
+ // Fan Stand for Hand Fan
 // Base plate: 70mm x 60mm
 // Oval cylinder: 30mm x 25mm (positioned in center)
+
+// Part export control - change this value to export different parts
+// "all" = complete model, "base" = base plate only, "cylinder" = cylinder only, "support" = tapered support only
+part_to_show = "all";  // Options: "all", "base", "cylinder", "support"
 
 // Parameters
 base_length = 70;  // mm
@@ -32,28 +36,41 @@ $fn = 64;  // Number of facets for smooth cylinders (higher = smoother)
 fan_stand();
 
 module fan_stand() {
-    difference() {
-        union() {
-            // Base plate
+    if (part_to_show == "all") {
+        // Complete model
+        difference() {
+            union() {
+                base_plate();
+                translate([0, 0, base_thickness]) {
+                    oval_cylinder();
+                    tapered_support();
+                }
+            }
+            cutouts();
+            translate([0, 0, base_thickness]) {
+                handle_cavity();
+            }
+        }
+    } else if (part_to_show == "base") {
+        // Base plate with cutouts only
+        difference() {
             base_plate();
-            
-            // Oval cylinder in the center
+            cutouts();
+        }
+    } else if (part_to_show == "cylinder") {
+        // Cylinder with handle cavity only
+        difference() {
             translate([0, 0, base_thickness]) {
                 oval_cylinder();
             }
-            
-            // Tapered support at base of cylinder
             translate([0, 0, base_thickness]) {
-                tapered_support();
+                handle_cavity();
             }
         }
-        
-        // Cut out half-moon shapes from all four sides
-        cutouts();
-        
-        // Cut out handle cavity inside cylinder
+    } else if (part_to_show == "support") {
+        // Tapered support only
         translate([0, 0, base_thickness]) {
-            handle_cavity();
+            tapered_support();
         }
     }
 }
